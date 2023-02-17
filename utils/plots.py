@@ -166,7 +166,7 @@ class Annotator:
                 self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA
             )
             if label:
-                ttspath = "tmp/{label}.mp3".format(label=label)
+                ttspath = "tmp/{label}.mp3".format(label=label.split()[0])
                 if os.path.isfile(ttspath):
                     playsound(ttspath)
                 else:
