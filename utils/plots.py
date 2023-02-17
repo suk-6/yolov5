@@ -147,6 +147,7 @@ class Annotator:
     def box_label(
         self, box, label="", color=(128, 128, 128), txt_color=(255, 255, 255)
     ):
+        Annotator.ttsplay(label)
         # Add one xyxy box to image with label
         if self.pil or not is_ascii(label):
             self.draw.rectangle(box, width=self.lw, outline=color)  # box
@@ -392,7 +393,6 @@ def plot_images(images, targets, paths=None, fname="images.jpg", names=None):
                 if labels or conf[j] > 0.25:  # 0.25 conf thresh
                     label = f"{cls}" if labels else f"{cls} {conf[j]:.1f}"
                     annotator.box_label(box, label, color=color)
-                    annotator.ttsplay(label)
     annotator.im.save(fname)  # save
 
 
