@@ -37,6 +37,7 @@ from utils.segment.general import scale_image
 
 from gtts import gTTS
 from playsound import playsound
+import asyncio
 
 # Settings
 RANK = int(os.getenv("RANK", -1))
@@ -132,6 +133,16 @@ class Annotator:
             self.im = im
         self.lw = line_width or max(round(sum(im.shape) / 2 * 0.003), 2)  # line width
 
+    async def ttsplay(label):
+        ttslabel = label.split()[0]
+        ttspath = "./tmp/{label}.mp3".format(label=ttslabel)
+        if os.path.isfile(ttspath):
+            playsound(ttspath)
+        else:
+            s = gTTS(ttslabel)
+            s.save(ttspath)
+            playsound(ttspath)
+
     def box_label(
         self, box, label="", color=(128, 128, 128), txt_color=(255, 255, 255)
     ):
@@ -166,14 +177,7 @@ class Annotator:
                 self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA
             )
             if label:
-                ttslabel = label.split()[0]
-                ttspath = "./tmp/{label}.mp3".format(label=ttslabel)
-                if os.path.isfile(ttspath):
-                    playsound(ttspath)
-                else:
-                    s = gTTS(ttslabel)
-                    s.save(ttspath)
-                    playsound(ttspath)
+                self.ttsplay(label)
                 tf = max(self.lw - 1, 1)  # font thickness
                 w, h = cv2.getTextSize(label, 0, fontScale=self.lw / 3, thickness=tf)[
                     0
