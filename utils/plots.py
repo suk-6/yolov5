@@ -132,7 +132,7 @@ class Annotator:
         else:  # use cv2
             self.im = im
         self.lw = line_width or max(round(sum(im.shape) / 2 * 0.003), 2)  # line width
-        loop = asyncio.get_event_loop()
+        self.loop = asyncio.get_event_loop()
 
     async def ttsplay(label):
         ttslabel = label.split()[0]
