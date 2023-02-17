@@ -166,11 +166,12 @@ class Annotator:
                 self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA
             )
             if label:
-                ttspath = "tmp/{label}.mp3".format(label=label.split()[0])
+                ttslabel = label.split()[0]
+                ttspath = "tmp/{label}.mp3".format(label=ttslabel)
                 if os.path.isfile(ttspath):
                     playsound(ttspath)
                 else:
-                    s = gTTS(label)
+                    s = gTTS(ttslabel)
                     s.save(ttspath)
                     playsound(ttspath)
                 tf = max(self.lw - 1, 1)  # font thickness
