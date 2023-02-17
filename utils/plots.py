@@ -150,8 +150,8 @@ class Annotator:
     def box_label(
         self, box, label="", color=(128, 128, 128), txt_color=(255, 255, 255)
     ):
-        Annotator.ttsplay(label)
         time.sleep(0.2)
+        Annotator.ttsplay(label)
         # threading.Thread(target=Annotator.ttsplay, args=(label,), daemon=True).start()
         # Add one xyxy box to image with label
         if self.pil or not is_ascii(label):
