@@ -167,7 +167,7 @@ class Annotator:
             )
             if label:
                 ttslabel = label.split()[0]
-                ttspath = "tmp/{label}.mp3".format(label=ttslabel)
+                ttspath = "./tmp/{label}.mp3".format(label=ttslabel)
                 if os.path.isfile(ttspath):
                     playsound(ttspath)
                 else:
