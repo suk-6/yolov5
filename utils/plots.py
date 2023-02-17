@@ -134,7 +134,7 @@ class Annotator:
         self.lw = line_width or max(round(sum(im.shape) / 2 * 0.003), 2)  # line width
         # self.loop = asyncio.get_event_loop()
 
-    async def ttsplay(label):
+    def ttsplay(label):
         ttslabel = label.split()[0]
         ttspath = "./tmp/{label}.mp3".format(label=ttslabel)
         if os.path.isfile(ttspath):
@@ -392,7 +392,7 @@ def plot_images(images, targets, paths=None, fname="images.jpg", names=None):
                 if labels or conf[j] > 0.25:  # 0.25 conf thresh
                     label = f"{cls}" if labels else f"{cls} {conf[j]:.1f}"
                     annotator.box_label(box, label, color=color)
-                    asyncio.run(annotator.ttsplay(label))
+                    annotator.ttsplay(label)
     annotator.im.save(fname)  # save
 
 
