@@ -177,7 +177,7 @@ class Annotator:
                 self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA
             )
             if label:
-                self.ttsplay(label)
+                asyncio.run(self.ttsplay(label))
                 tf = max(self.lw - 1, 1)  # font thickness
                 w, h = cv2.getTextSize(label, 0, fontScale=self.lw / 3, thickness=tf)[
                     0
