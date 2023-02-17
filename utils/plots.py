@@ -144,7 +144,7 @@ class Annotator:
             s.save(ttspath)
             playsound(ttspath)
 
-    def box_label(
+    async def box_label(
         self, box, label="", color=(128, 128, 128), txt_color=(255, 255, 255)
     ):
         # Add one xyxy box to image with label
@@ -178,7 +178,7 @@ class Annotator:
                 self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA
             )
             if label:
-                asyncio.run(Annotator.ttsplay(label))
+                await Annotator.ttsplay(label)
                 # self.loop.create_task(Annotator.ttsplay(label))
                 tf = max(self.lw - 1, 1)  # font thickness
                 w, h = cv2.getTextSize(label, 0, fontScale=self.lw / 3, thickness=tf)[
@@ -392,7 +392,7 @@ def plot_images(images, targets, paths=None, fname="images.jpg", names=None):
                 cls = names[cls] if names else cls
                 if labels or conf[j] > 0.25:  # 0.25 conf thresh
                     label = f"{cls}" if labels else f"{cls} {conf[j]:.1f}"
-                    annotator.box_label(box, label, color=color)
+                    asyncio.run(annotator.box_label(box, label, color=color))
     annotator.im.save(fname)  # save
 
 
