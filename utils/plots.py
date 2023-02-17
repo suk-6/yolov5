@@ -132,7 +132,7 @@ class Annotator:
         else:  # use cv2
             self.im = im
         self.lw = line_width or max(round(sum(im.shape) / 2 * 0.003), 2)  # line width
-        # self.loop = asyncio.get_event_loop()
+        self.loop = asyncio.get_event_loop()
 
     async def ttsplay(label):
         ttslabel = label.split()[0]
@@ -178,7 +178,7 @@ class Annotator:
                 self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA
             )
             if label:
-                asyncio.run(asyncio.create_task(Annotator.ttsplay(label)))
+                self.loop.create_task(asyncio.run(Annotator.ttsplay(label)))
                 tf = max(self.lw - 1, 1)  # font thickness
                 w, h = cv2.getTextSize(label, 0, fontScale=self.lw / 3, thickness=tf)[
                     0
