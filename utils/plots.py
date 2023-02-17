@@ -140,18 +140,18 @@ class Annotator:
         ttspath = "./tmp/{label}.mp3".format(label=ttslabel)
         if os.path.isfile(ttspath):
             # playsound(ttspath)
-            threading.Thread(target=playsound, args=(ttspath,)).start()
+            threading.Thread(target=playsound, args=(ttspath,), daemon=True).start()
         else:
             s = gTTS(ttslabel)
             s.save(ttspath)
             # playsound(ttspath)
-            threading.Thread(target=playsound, args=(ttspath,)).start()
+            threading.Thread(target=playsound, args=(ttspath,), daemon=True).start()
 
     def box_label(
         self, box, label="", color=(128, 128, 128), txt_color=(255, 255, 255)
     ):
         Annotator.ttsplay(label)
-        time.sleep(0.1)
+        time.sleep(0.5)
         # threading.Thread(target=Annotator.ttsplay, args=(label,), daemon=True).start()
         # Add one xyxy box to image with label
         if self.pil or not is_ascii(label):
