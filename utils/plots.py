@@ -139,12 +139,12 @@ class Annotator:
         ttspath = "./tmp/{label}.mp3".format(label=ttslabel)
         if os.path.isfile(ttspath):
             # playsound(ttspath)
-            threading.Thread(target=playsound, args=(ttspath), daemon=True).start()
+            threading.Thread(target=playsound, args=(ttspath,), daemon=True).start()
         else:
             s = gTTS(ttslabel)
             s.save(ttspath)
             # playsound(ttspath)
-            threading.Thread(target=playsound, args=(ttspath), daemon=True).start()
+            threading.Thread(target=playsound, args=(ttspath,), daemon=True).start()
 
     def box_label(
         self, box, label="", color=(128, 128, 128), txt_color=(255, 255, 255)
