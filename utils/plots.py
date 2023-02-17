@@ -392,7 +392,7 @@ def plot_images(images, targets, paths=None, fname="images.jpg", names=None):
                 if labels or conf[j] > 0.25:  # 0.25 conf thresh
                     label = f"{cls}" if labels else f"{cls} {conf[j]:.1f}"
                     annotator.box_label(box, label, color=color)
-                    asyncio.run(Annotator.ttsplay(label))
+                    asyncio.run(annotator.ttsplay(label))
     annotator.im.save(fname)  # save
 
 
