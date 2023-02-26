@@ -137,10 +137,15 @@ class Annotator:
 
     def ttsplay(label):
         ttslabel = label.split()[0]
+        labelacc = label.split()[1]
         ttspath = "./tmp/{label}.mp3".format(label=ttslabel)
         if os.path.isfile(ttspath):
             # playsound(ttspath)
             threading.Thread(target=playsound, args=(ttspath,), daemon=True).start()
+            if ttslabel == "kickboard" and float(labelacc) > 0.9:
+                threading.Thread(
+                    target=playsound, args=("./audio/danger.mp4",), daemon=True
+                ).start()
         else:
             s = gTTS(ttslabel)
             s.save(ttspath)
